@@ -205,10 +205,6 @@ class Completions(SyncAPIResource):
 
               We generally recommend altering this or `temperature` but not both.
 
-          user: A unique identifier representing your end-user, which can help OpenAI to monitor
-              and detect abuse.
-              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -391,10 +387,6 @@ class Completions(SyncAPIResource):
 
               We generally recommend altering this or `temperature` but not both.
 
-          user: A unique identifier representing your end-user, which can help OpenAI to monitor
-              and detect abuse.
-              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -576,10 +568,6 @@ class Completions(SyncAPIResource):
               means only the tokens comprising the top 10% probability mass are considered.
 
               We generally recommend altering this or `temperature` but not both.
-
-          user: A unique identifier representing your end-user, which can help OpenAI to monitor
-              and detect abuse.
-              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids).
 
           extra_headers: Send extra headers
 
@@ -853,10 +841,6 @@ class AsyncCompletions(AsyncAPIResource):
 
               We generally recommend altering this or `temperature` but not both.
 
-          user: A unique identifier representing your end-user, which can help OpenAI to monitor
-              and detect abuse.
-              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1039,10 +1023,6 @@ class AsyncCompletions(AsyncAPIResource):
 
               We generally recommend altering this or `temperature` but not both.
 
-          user: A unique identifier representing your end-user, which can help OpenAI to monitor
-              and detect abuse.
-              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids).
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1224,10 +1204,6 @@ class AsyncCompletions(AsyncAPIResource):
               means only the tokens comprising the top 10% probability mass are considered.
 
               We generally recommend altering this or `temperature` but not both.
-
-          user: A unique identifier representing your end-user, which can help OpenAI to monitor
-              and detect abuse.
-              [Learn more](https://platform.openai.com/docs/guides/safety-best-practices/end-user-ids).
 
           extra_headers: Send extra headers
 

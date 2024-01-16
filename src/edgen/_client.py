@@ -49,16 +49,7 @@ __all__ = [
 class Edgen(SyncAPIClient):
     completions: resources.Completions
     chat: resources.Chat
-    edits: resources.Edits
-    embeddings: resources.Embeddings
-    files: resources.Files
-    images: resources.Images
     audio: resources.Audio
-    moderations: resources.Moderations
-    models: resources.Models
-    fine_tuning: resources.FineTuning
-    fine_tunes: resources.FineTunes
-    beta: resources.Beta
     with_raw_response: EdgenWithRawResponse
 
     # client options
@@ -121,19 +112,8 @@ class Edgen(SyncAPIClient):
 
         self._default_stream_cls = Stream
 
-        self.completions = resources.Completions(self)
         self.chat = resources.Chat(self)
-        self.edits = resources.Edits(self)
-        self.embeddings = resources.Embeddings(self)
-        self.files = resources.Files(self)
-        self.images = resources.Images(self)
         self.audio = resources.Audio(self)
-        self.moderations = resources.Moderations(self)
-        self.models = resources.Models(self)
-        self.fine_tuning = resources.FineTuning(self)
-        self.fine_tunes = resources.FineTunes(self)
-        self.beta = resources.Beta(self)
-        self.with_raw_response = EdgenWithRawResponse(self)
 
     @property
     @override
@@ -245,18 +225,8 @@ class Edgen(SyncAPIClient):
 
 
 class AsyncEdgen(AsyncAPIClient):
-    completions: resources.AsyncCompletions
     chat: resources.AsyncChat
-    edits: resources.AsyncEdits
-    embeddings: resources.AsyncEmbeddings
-    files: resources.AsyncFiles
-    images: resources.AsyncImages
     audio: resources.AsyncAudio
-    moderations: resources.AsyncModerations
-    models: resources.AsyncModels
-    fine_tuning: resources.AsyncFineTuning
-    fine_tunes: resources.AsyncFineTunes
-    beta: resources.AsyncBeta
     with_raw_response: AsyncEdgenWithRawResponse
 
     # client options
@@ -319,16 +289,7 @@ class AsyncEdgen(AsyncAPIClient):
 
         self.completions = resources.AsyncCompletions(self)
         self.chat = resources.AsyncChat(self)
-        self.edits = resources.AsyncEdits(self)
-        self.embeddings = resources.AsyncEmbeddings(self)
-        self.files = resources.AsyncFiles(self)
-        self.images = resources.AsyncImages(self)
         self.audio = resources.AsyncAudio(self)
-        self.moderations = resources.AsyncModerations(self)
-        self.models = resources.AsyncModels(self)
-        self.fine_tuning = resources.AsyncFineTuning(self)
-        self.fine_tunes = resources.AsyncFineTunes(self)
-        self.beta = resources.AsyncBeta(self)
         self.with_raw_response = AsyncEdgenWithRawResponse(self)
 
     @property
@@ -444,32 +405,14 @@ class EdgenWithRawResponse:
     def __init__(self, client: Edgen) -> None:
         self.completions = resources.CompletionsWithRawResponse(client.completions)
         self.chat = resources.ChatWithRawResponse(client.chat)
-        self.edits = resources.EditsWithRawResponse(client.edits)
-        self.embeddings = resources.EmbeddingsWithRawResponse(client.embeddings)
-        self.files = resources.FilesWithRawResponse(client.files)
-        self.images = resources.ImagesWithRawResponse(client.images)
         self.audio = resources.AudioWithRawResponse(client.audio)
-        self.moderations = resources.ModerationsWithRawResponse(client.moderations)
-        self.models = resources.ModelsWithRawResponse(client.models)
-        self.fine_tuning = resources.FineTuningWithRawResponse(client.fine_tuning)
-        self.fine_tunes = resources.FineTunesWithRawResponse(client.fine_tunes)
-        self.beta = resources.BetaWithRawResponse(client.beta)
 
 
 class AsyncEdgenWithRawResponse:
     def __init__(self, client: AsyncEdgen) -> None:
         self.completions = resources.AsyncCompletionsWithRawResponse(client.completions)
         self.chat = resources.AsyncChatWithRawResponse(client.chat)
-        self.edits = resources.AsyncEditsWithRawResponse(client.edits)
-        self.embeddings = resources.AsyncEmbeddingsWithRawResponse(client.embeddings)
-        self.files = resources.AsyncFilesWithRawResponse(client.files)
-        self.images = resources.AsyncImagesWithRawResponse(client.images)
         self.audio = resources.AsyncAudioWithRawResponse(client.audio)
-        self.moderations = resources.AsyncModerationsWithRawResponse(client.moderations)
-        self.models = resources.AsyncModelsWithRawResponse(client.models)
-        self.fine_tuning = resources.AsyncFineTuningWithRawResponse(client.fine_tuning)
-        self.fine_tunes = resources.AsyncFineTunesWithRawResponse(client.fine_tunes)
-        self.beta = resources.AsyncBetaWithRawResponse(client.beta)
 
 
 Client = Edgen
