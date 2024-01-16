@@ -12,7 +12,7 @@ from ._client import Client, Edgen, Stream, Timeout, Transport, AsyncClient, Asy
 from ._version import __title__, __version__
 from ._exceptions import (
     APIError,
-    OpenAIError,
+    EdgenError,
     ConflictError,
     NotFoundError,
     APIStatusError,
@@ -35,7 +35,7 @@ __all__ = [
     "NoneType",
     "Transport",
     "ProxiesTypes",
-    "OpenAIError",
+    "EdgenError",
     "APIError",
     "APIStatusError",
     "APITimeoutError",
@@ -215,7 +215,7 @@ class _AzureModuleClient(_ModuleClient, AzureOpenAI):  # type: ignore
     ...
 
 
-class _AmbiguousModuleClientUsageError(OpenAIError):
+class _AmbiguousModuleClientUsageError(EdgenError):
     def __init__(self) -> None:
         super().__init__(
             "Ambiguous use of module client; please set `openai.api_type` or the `OPENAI_API_TYPE` environment variable to `openai` or `azure`"

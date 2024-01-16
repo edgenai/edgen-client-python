@@ -21,11 +21,11 @@ __all__ = [
 ]
 
 
-class OpenAIError(Exception):
+class EdgenError(Exception):
     pass
 
 
-class APIError(OpenAIError):
+class APIError(EdgenError):
     message: str
     request: httpx.Request
 

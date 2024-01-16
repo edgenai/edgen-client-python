@@ -1,7 +1,7 @@
 #!/usr/bin/env -S poetry run python
 
 import sys
-sys.path.append("/home/ts/binedge/wrk/client/edgen/src") 
+sys.path.append("/home/ts/binedge/wrk/client/edgen-python-client/src") 
 
 from edgen import Edgen
 

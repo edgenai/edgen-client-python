@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import override
 
 from .._utils import LazyProxy
-from .._exceptions import OpenAIError
+from .._exceptions import EdgenError
 
 INSTRUCTIONS = """
 
@@ -18,7 +18,7 @@ A detailed migration guide is available here: https://github.com/openai/openai-p
 """
 
 
-class APIRemovedInV1(OpenAIError):
+class APIRemovedInV1(EdgenError):
     def __init__(self, *, symbol: str) -> None:
         super().__init__(INSTRUCTIONS.format(symbol=symbol))
 

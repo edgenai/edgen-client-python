@@ -12,7 +12,7 @@ from .._utils import is_given, is_mapping
 from .._client import Edgen, AsyncEdgen
 from .._models import FinalRequestOptions
 from .._streaming import Stream, AsyncStream
-from .._exceptions import OpenAIError
+from .._exceptions import EdgenError
 from .._base_client import DEFAULT_MAX_RETRIES, BaseClient
 
 _deployments_endpoints = set(
@@ -39,7 +39,7 @@ _DefaultStreamT = TypeVar("_DefaultStreamT", bound=Union[Stream[Any], AsyncStrea
 API_KEY_SENTINEL = "".join(["<", "missing API key", ">"])
 
 
-class MutuallyExclusiveAuthError(OpenAIError):
+class MutuallyExclusiveAuthError(EdgenError):
     def __init__(self) -> None:
         super().__init__(
             "The `api_key`, `azure_ad_token` and `azure_ad_token_provider` arguments are mutually exclusive; Only one can be passed at a time"
@@ -163,7 +163,7 @@ class AzureOpenAI(BaseAzureClient[httpx.Client, Stream[Any]], Edgen):
             azure_ad_token = os.environ.get("AZURE_OPENAI_AD_TOKEN")
 
         if api_key is None and azure_ad_token is None and azure_ad_token_provider is None:
-            raise OpenAIError(
+            raise EdgenError(
                 "Missing credentials. Please pass one of `api_key`, `azure_ad_token`, `azure_ad_token_provider`, or the `AZURE_OPENAI_API_KEY` or `AZURE_OPENAI_AD_TOKEN` environment variables."
             )
 
@@ -396,7 +396,7 @@ class AsyncAzureOpenAI(BaseAzureClient[httpx.AsyncClient, AsyncStream[Any]], Asy
             azure_ad_token = os.environ.get("AZURE_OPENAI_AD_TOKEN")
 
         if api_key is None and azure_ad_token is None and azure_ad_token_provider is None:
-            raise OpenAIError(
+            raise EdgenError(
                 "Missing credentials. Please pass one of `api_key`, `azure_ad_token`, `azure_ad_token_provider`, or the `AZURE_OPENAI_API_KEY` or `AZURE_OPENAI_AD_TOKEN` environment variables."
             )
 

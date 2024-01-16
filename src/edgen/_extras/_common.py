@@ -1,4 +1,4 @@
-from .._exceptions import OpenAIError
+from .._exceptions import EdgenError
 
 INSTRUCTIONS = """
 
@@ -17,5 +17,5 @@ def format_instructions(*, library: str, extra: str) -> str:
     return INSTRUCTIONS.format(library=library, extra=extra)
 
 
-class MissingDependencyError(OpenAIError):
+class MissingDependencyError(EdgenError):
     pass
