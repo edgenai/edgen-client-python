@@ -2,6 +2,7 @@
 
 from .chat import Chat, AsyncChat, ChatWithRawResponse, AsyncChatWithRawResponse
 from .audio import Audio, AsyncAudio, AudioWithRawResponse, AsyncAudioWithRawResponse
+from .misc import Misc
 
 __all__ = [
     "Completions",
@@ -16,4 +17,5 @@ __all__ = [
     "AsyncAudio",
     "AudioWithRawResponse",
     "AsyncAudioWithRawResponse",
+    "Misc"
 ]

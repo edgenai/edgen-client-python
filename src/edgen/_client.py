@@ -50,6 +50,7 @@ class Edgen(SyncAPIClient):
     completions: resources.Completions
     chat: resources.Chat
     audio: resources.Audio
+    misc: resources.Misc
     with_raw_response: EdgenWithRawResponse
 
     # client options
@@ -114,6 +115,7 @@ class Edgen(SyncAPIClient):
 
         self.chat = resources.Chat(self)
         self.audio = resources.Audio(self)
+        self.misc  = resources.Misc(self)
 
     @property
     @override
