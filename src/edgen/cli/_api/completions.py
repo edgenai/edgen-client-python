@@ -84,7 +84,7 @@ Mutually exclusive with `top_p`.""",
     sub.add_argument("--stop", help="A stop sequence at which to stop generating tokens.")
     sub.add_argument(
         "--user",
-        help="A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.",
+        help="A unique identifier representing your end-user, which can help Edgen to monitor and detect abuse.",
     )
     # TODO: add support for logit_bias
     sub.set_defaults(func=CLICompletions.create, args_model=CLICompletionCreateArgs)

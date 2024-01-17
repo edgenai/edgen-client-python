@@ -2,7 +2,7 @@ from .._exceptions import EdgenError
 
 INSTRUCTIONS = """
 
-OpenAI error:
+Edgen error:
 
     missing `{library}`
 

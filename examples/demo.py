@@ -19,6 +19,7 @@ completion = client.chat.completions.create(
 # print(completion.choices[0].delta.content)
 print(completion)
 
+"""
 # Streaming:
 print("----- streaming request -----")
 stream = client.chat.completions.create(
@@ -37,3 +38,4 @@ for chunk in stream:
 
     print(chunk.choices[0].delta.content, end="")
 print()
+"""

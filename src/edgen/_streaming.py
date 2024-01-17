@@ -12,7 +12,7 @@ from ._utils import is_mapping
 from ._exceptions import APIError
 
 if TYPE_CHECKING:
-    from ._client import OpenAI, AsyncOpenAI
+    from ._client import Edgen, AsyncEdgen
 
 
 _T = TypeVar("_T")
@@ -28,7 +28,7 @@ class Stream(Generic[_T]):
         *,
         cast_to: type[_T],
         response: httpx.Response,
-        client: OpenAI,
+        client: Edgen,
     ) -> None:
         self.response = response
         self._cast_to = cast_to
@@ -101,7 +101,7 @@ class AsyncStream(Generic[_T]):
         *,
         cast_to: type[_T],
         response: httpx.Response,
-        client: AsyncOpenAI,
+        client: AsyncEdgen,
     ) -> None:
         self.response = response
         self._cast_to = cast_to

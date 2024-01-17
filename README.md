@@ -1,37 +1,34 @@
-# OpenAI Python API library
+# Edgen Python API library
 
 [![PyPI version](https://img.shields.io/pypi/v/openai.svg)](https://pypi.org/project/openai/)
 
-The OpenAI Python library provides convenient access to the OpenAI REST API from any Python 3.7+
+The Edgen Python is a clone of the official OpenAI Python library.
+It provides convenient access to the Edgen REST API from any Python 3.7+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
-It is generated from our [OpenAPI specification](https://github.com/openai/openai-openapi) with [Stainless](https://stainlessapi.com/).
+The original library was generated from the [OpenAPI specification](https://github.com/openai/openai-openapi) with [Stainless](https://stainlessapi.com/).
 
 ## Documentation
 
-The API documentation can be found [here](https://platform.openai.com/docs).
+The API documentation can be found [here](https://edgenai.com/docs).
 
 ## Installation
 
-> [!IMPORTANT]
-> The SDK was rewritten in v1, which was released November 6th 2023. See the [v1 migration guide](https://github.com/openai/openai-python/discussions/742), which includes scripts to automatically update your code.
-
 ```sh
-pip install openai
+pip install edgen
 ```
 
 ## Usage
 
-The full API of this library can be found in [api.md](https://www.github.com/openai/openai-python/blob/main/api.md).
+The full API of this library can be found in [api.md](https://www.github.com/edgenai/openai-python-client/blob/main/api.md).
 
 ```python
 import os
-from openai import OpenAI
+from edgen import Edgen
 
-client = OpenAI(
-    # This is the default and can be omitted
-    api_key=os.environ.get("OPENAI_API_KEY"),
+client = Edgen(
+    base_url=os.environ.get("EDGEN_BASE_URL"), # this is default and can be omitted
 )
 
 chat_completion = client.chat.completions.create(
@@ -41,29 +38,25 @@ chat_completion = client.chat.completions.create(
             "content": "Say this is a test",
         }
     ],
-    model="gpt-3.5-turbo",
+    model="ignore",
 )
 ```
 
-While you can provide an `api_key` keyword argument,
-we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `OPENAI_API_KEY="My API Key"` to your `.env` file
-so that your API Key is not stored in source control.
+Note that, in the current version, the model is ignored.
+The model per endpoint is chosen in the *edgen-server*.
+However, the *model* element must be present for compatibility with the OpenAI spec.
+
 
 ## Async usage
 
-Simply import `AsyncOpenAI` instead of `OpenAI` and use `await` with each API call:
+Simply import `AsyncEdgen` instead of `Edgen` and use `await` with each API call:
 
 ```python
 import os
 import asyncio
-from openai import AsyncOpenAI
+from edgen import AsyncEdgen
 
-client = AsyncOpenAI(
-    # This is the default and can be omitted
-    api_key=os.environ.get("OPENAI_API_KEY"),
-)
-
+client = AsyncEdgen()
 
 async def main() -> None:
     chat_completion = await client.chat.completions.create(
@@ -73,7 +66,7 @@ async def main() -> None:
                 "content": "Say this is a test",
             }
         ],
-        model="gpt-3.5-turbo",
+        model="ignore",
     )
 
 
@@ -87,12 +80,12 @@ Functionality between the synchronous and asynchronous clients is otherwise iden
 We provide support for streaming responses using Server Side Events (SSE).
 
 ```python
-from openai import OpenAI
+from edgen import Edgen
 
-client = OpenAI()
+client = Edgen()
 
 stream = client.chat.completions.create(
-    model="gpt-4",
+    model="ignore",
     messages=[{"role": "user", "content": "Say this is a test"}],
     stream=True,
 )
@@ -103,14 +96,14 @@ for chunk in stream:
 The async client uses the exact same interface.
 
 ```python
-from openai import AsyncOpenAI
+from edgen import AsyncEdgen
 
-client = AsyncOpenAI()
+client = AsyncEdgen()
 
 
 async def main():
     stream = await client.chat.completions.create(
-        model="gpt-4",
+        model="ignore",
         messages=[{"role": "user", "content": "Say this is a test"}],
         stream=True,
     )
@@ -121,46 +114,6 @@ async def main():
 asyncio.run(main())
 ```
 
-## Module-level client
-
-> [!IMPORTANT]
-> We highly recommend instantiating client instances instead of relying on the global client.
-
-We also expose a global client instance that is accessible in a similar fashion to versions prior to v1.
-
-```py
-import openai
-
-# optional; defaults to `os.environ['OPENAI_API_KEY']`
-openai.api_key = '...'
-
-# all client options can be configured just like the `OpenAI` instantiation counterpart
-openai.base_url = "https://..."
-openai.default_headers = {"x-foo": "true"}
-
-completion = openai.chat.completions.create(
-    model="gpt-4",
-    messages=[
-        {
-            "role": "user",
-            "content": "How do I output all files in a directory using Python?",
-        },
-    ],
-)
-print(completion.choices[0].message.content)
-```
-
-The API is the exact same as the standard client instance based API.
-
-This is intended to be used within REPLs or notebooks for faster iteration, **not** in application code.
-
-We recommend that you always instantiate a client (e.g., with `client = OpenAI()`) in application code because:
-
-- It can be difficult to reason about where client options are configured
-- It's not possible to change certain client options without potentially causing race conditions
-- It's harder to mock for testing purposes
-- It's not possible to control cleanup of network connections
-
 ## Using types
 
 Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev), which provide helper methods for things like:
@@ -170,74 +123,6 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
 
-## Pagination
-
-List methods in the OpenAI API are paginated.
-
-This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
-
-```python
-import openai
-
-client = OpenAI()
-
-all_jobs = []
-# Automatically fetches more pages as needed.
-for job in client.fine_tuning.jobs.list(
-    limit=20,
-):
-    # Do something with job here
-    all_jobs.append(job)
-print(all_jobs)
-```
-
-Or, asynchronously:
-
-```python
-import asyncio
-import openai
-
-client = AsyncOpenAI()
-
-
-async def main() -> None:
-    all_jobs = []
-    # Iterate through items across all pages, issuing requests as needed.
-    async for job in client.fine_tuning.jobs.list(
-        limit=20,
-    ):
-        all_jobs.append(job)
-    print(all_jobs)
-
-
-asyncio.run(main())
-```
-
-Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
-
-```python
-first_page = await client.fine_tuning.jobs.list(
-    limit=20,
-)
-if first_page.has_next_page():
-    print(f"will fetch next page using these details: {first_page.next_page_info()}")
-    next_page = await first_page.get_next_page()
-    print(f"number of items we just fetched: {len(next_page.data)}")
-
-# Remove `await` for non-async usage.
-```
-
-Or just work directly with the returned data:
-
-```python
-first_page = await client.fine_tuning.jobs.list(
-    limit=20,
-)
-
-print(f"next page cursor: {first_page.after}")  # => "next page cursor: ..."
-for job in first_page.data:
-    print(job.id)
-
 # Remove `await` for non-async usage.
 ```
 
@@ -246,9 +131,9 @@ for job in first_page.data:
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
 
 ```python
-from openai import OpenAI
+from edgen import Edgen
 
-client = OpenAI()
+client = Edgen()
 
 completion = client.chat.completions.create(
     messages=[
@@ -257,28 +142,10 @@ completion = client.chat.completions.create(
             "content": "Can you generate an example json object describing a fruit?",
         }
     ],
-    model="gpt-3.5-turbo-1106",
+    model="ignore",
     response_format={"type": "json_object"},
 )
 ```
-
-## File Uploads
-
-Request parameters that correspond to file uploads can be passed as `bytes`, a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance or a tuple of `(filename, contents, media type)`.
-
-```python
-from pathlib import Path
-from openai import OpenAI
-
-client = OpenAI()
-
-client.files.create(
-    file=Path("input.jsonl"),
-    purpose="fine-tune",
-)
-```
-
-The async client uses the exact same interface. If you pass a [`PathLike`](https://docs.python.org/3/library/os.html#os.PathLike) instance, the file contents will be read asynchronously automatically.
 
 ## Handling errors
 
@@ -290,21 +157,27 @@ response), a subclass of `openai.APIStatusError` is raised, containing `status_c
 All errors inherit from `openai.APIError`.
 
 ```python
-import openai
-from openai import OpenAI
+import edgen
+from edgen import Edgen
 
-client = OpenAI()
+client = Edgen()
 
 try:
-    client.fine_tunes.create(
-        training_file="file-XGinujblHPwGLSztz8cPS8XY",
+    chat_completion = await client.chat.completions.create(
+        messages=[
+            {
+                "role": "user",
+                "content": "Say this is a test",
+            }
+        ],
+        model="ignore",
     )
-except openai.APIConnectionError as e:
+except edgen.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except openai.RateLimitError as e:
+except edgen.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except openai.APIStatusError as e:
+except edgen.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -332,10 +205,10 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from openai import OpenAI
+from edgen import Edgen
 
 # Configure the default for all requests:
-client = OpenAI(
+client = Edgen(
     # default is 2
     max_retries=0,
 )
@@ -348,7 +221,7 @@ client.with_options(max_retries=5).chat.completions.create(
             "content": "How can I get the name of the current day in Node.js?",
         }
     ],
-    model="gpt-3.5-turbo",
+    model="ignore",
 )
 ```
 
@@ -358,16 +231,16 @@ By default requests time out after 10 minutes. You can configure this with a `ti
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
-from openai import OpenAI
+from edgen import Edgen
 
 # Configure the default for all requests:
-client = OpenAI(
+client = Edgen(
     # 20 seconds (default is 10 minutes)
     timeout=20.0,
 )
 
 # More granular control:
-client = OpenAI(
+client = Edgen(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
@@ -393,10 +266,10 @@ Note that requests that time out are [retried twice by default](#retries).
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `OPENAI_LOG` to `debug`.
+You can enable logging by setting the environment variable `EDGEN_LOG` to `debug`.
 
 ```shell
-$ export OPENAI_LOG=debug
+$ export EDGEN_LOG=debug
 ```
 
 ### How to tell whether `None` means `null` or missing
@@ -416,15 +289,15 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call.
 
 ```py
-from openai import OpenAI
+from edgen import Edgen
 
-client = OpenAI()
+client = Edgen()
 response = client.chat.completions.with_raw_response.create(
     messages=[{
         "role": "user",
         "content": "Say this is a test",
     }],
-    model="gpt-3.5-turbo",
+    model="ignore",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -444,10 +317,10 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from openai import OpenAI
+from edgen import Edgen
 
-client = OpenAI(
-    # Or use the `OPENAI_BASE_URL` env var
+client = Edgen(
+    # Or use the `EDGEN_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=httpx.Client(
         proxies="http://my.test.proxy.example.com",
@@ -456,64 +329,14 @@ client = OpenAI(
 )
 ```
 
-### Managing HTTP resources
-
-By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
-
-## Microsoft Azure OpenAI
-
-To use this library with [Azure OpenAI](https://learn.microsoft.com/en-us/azure/ai-services/openai/overview), use the `AzureOpenAI`
-class instead of the `OpenAI` class.
-
-> [!IMPORTANT]
-> The Azure API shape differs from the core API shape which means that the static types for responses / params
-> won't always be correct.
-
-```py
-from openai import AzureOpenAI
-
-# gets the API Key from environment variable AZURE_OPENAI_API_KEY
-client = AzureOpenAI(
-    # https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#rest-api-versioning
-    api_version="2023-07-01-preview",
-    # https://learn.microsoft.com/en-us/azure/cognitive-services/openai/how-to/create-resource?pivots=web-portal#create-a-resource
-    azure_endpoint="https://example-endpoint.openai.azure.com",
-)
-
-completion = client.chat.completions.create(
-    model="deployment-name",  # e.g. gpt-35-instant
-    messages=[
-        {
-            "role": "user",
-            "content": "How do I output all files in a directory using Python?",
-        },
-    ],
-)
-print(completion.model_dump_json(indent=2))
-```
-
-In addition to the options provided in the base `OpenAI` client, the following options are provided:
-
-- `azure_endpoint` (or the `AZURE_OPENAI_ENDPOINT` environment variable)
-- `azure_deployment`
-- `api_version` (or the `OPENAI_API_VERSION` environment variable)
-- `azure_ad_token` (or the `AZURE_OPENAI_AD_TOKEN` environment variable)
-- `azure_ad_token_provider`
-
-An example of using the client with Azure Active Directory can be found [here](https://github.com/openai/openai-python/blob/main/examples/azure_ad.py).
-
 ## Versioning
 
-This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
-
-1. Changes that only affect static types, without breaking runtime behavior.
-2. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals)_.
-3. Changes that we do not expect to impact the vast majority of users in practice.
-
-We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
-
-We are keen for your feedback; please open an [issue](https://www.github.com/openai/openai-python/issues) with questions, bugs, or suggestions.
+This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions.
 
 ## Requirements
 
 Python 3.7 or higher.
+
+## Tests
+
+The tests are based on *pytest* with the *pytest-asyncio*, *anyio*, *Faker* and *respx* plugins.

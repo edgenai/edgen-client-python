@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import sys
 
-import openai
+import edgen 
 
-from .. import OpenAI, _load_client
+from .. import Edgen, _load_client
 from .._compat import model_json
 from .._models import BaseModel
 
@@ -20,12 +20,12 @@ class Colors:
     UNDERLINE = "\033[4m"
 
 
-def get_client() -> OpenAI:
+def get_client() -> Edgen:
     return _load_client()
 
 
 def organization_info() -> str:
-    organization = openai.organization
+    organization = edgen.organization
     if organization is not None:
         return "[organization={}] ".format(organization)
 
