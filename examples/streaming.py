@@ -1,15 +1,11 @@
 #!/usr/bin/env -S poetry run python
 
 import asyncio
-import sys
-
-sys.path.append("/home/ts/binedge/wrk/client/edgen-python-client/src") 
 
 from edgen import Edgen, AsyncEdgen
 
 # You can run this script from the root directory like so:
 # `python examples/streaming.py`
-
 
 def sync_main() -> None:
     client = Edgen()
@@ -41,8 +37,7 @@ async def async_main() -> None:
         messages=[
             {
                 "role": "user",
-                # "content": "Mirror, mirror on the wall, who is the fairest of them all?",
-                "content": "what is 1 + 2?",
+                "content": "Mirror, mirror on the wall, who is the fairest of them all?",
             },
         ],
         stream=True,
@@ -61,6 +56,6 @@ async def async_main() -> None:
 
 
 
-# sync_main()
+sync_main()
 
 asyncio.run(async_main())

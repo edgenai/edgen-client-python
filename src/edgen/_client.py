@@ -98,7 +98,7 @@ class Edgen(SyncAPIClient):
         if base_url is None:
             base_url = f"http://127.0.0.1:3000/v1"
 
-        print(f"{base_url}")
+        # print(f"{base_url}")
 
         super().__init__(
             version=__version__,

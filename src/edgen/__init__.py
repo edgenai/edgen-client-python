@@ -75,7 +75,7 @@ __locals = locals()
 for __name in __all__:
     if not __name.startswith("__"):
         try:
-            __locals[__name].__module__ = "openai"
+            __locals[__name].__module__ = "edgen"
         except (TypeError, AttributeError):
             # Some of our exported symbols are builtins which we can't set attributes for.
             pass
@@ -104,11 +104,11 @@ default_query: _t.Mapping[str, object] | None = None
 
 http_client: _httpx.Client | None = None
 
-_ApiType = _te.Literal["openai", "azure"]
+_ApiType = _te.Literal["edgen", "azure"]
 
-api_type: _ApiType | None = _t.cast(_ApiType, _os.environ.get("OPENAI_API_TYPE"))
+api_type: _ApiType | None = _t.cast(_ApiType, _os.environ.get("EDGEN_API_TYPE"))
 
-api_version: str | None = _os.environ.get("OPENAI_API_VERSION")
+api_version: str | None = _os.environ.get("EDGEN_API_VERSION")
 
 azure_endpoint: str | None = _os.environ.get("AZURE_OPENAI_ENDPOINT")
 
@@ -218,12 +218,12 @@ class _AzureModuleClient(_ModuleClient, AzureOpenAI):  # type: ignore
 class _AmbiguousModuleClientUsageError(EdgenError):
     def __init__(self) -> None:
         super().__init__(
-            "Ambiguous use of module client; please set `openai.api_type` or the `OPENAI_API_TYPE` environment variable to `openai` or `azure`"
+            "Ambiguous use of module client; please set `edgen.api_type` or the `EDGEN_API_TYPE` environment variable to `openai` or `azure`"
         )
 
 
-def _has_openai_credentials() -> bool:
-    return _os.environ.get("OPENAI_API_KEY") is not None
+def _has_edgen_credentials() -> bool:
+    return _os.environ.get("EDGEN_API_KEY") is not None
 
 
 def _has_azure_credentials() -> bool:

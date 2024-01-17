@@ -59,6 +59,6 @@
   ],
   "release-type": "python",
   "extra-files": [
-    "src/openai/_version.py"
+    "src/edgen/_version.py"
   ]
 }

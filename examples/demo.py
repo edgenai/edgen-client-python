@@ -1,16 +1,12 @@
 #!/usr/bin/env -S poetry run python
 
-import sys
-sys.path.append("/home/ts/binedge/wrk/client/edgen-python-client/src") 
-
 from edgen import Edgen
 
-# gets API Key from environment variable OPENAI_API_KEY
 client = Edgen()
 
 # Non-streaming:
 print("----- standard request -----")
-stream = client.chat.completions.create(
+completion = client.chat.completions.create(
     model="zephyr-7b-beta.Q4_K_M.gguf",
     messages=[
         {
@@ -18,15 +14,10 @@ stream = client.chat.completions.create(
             "content": "what is 1 + 2?",
         },
     ],
-    stream=True,
 )
 
-for chunk in stream:
-    if not chunk.choices:
-        continue
-
-    print(chunk.choices[0].delta.content, end="")
-print()
+# print(completion.choices[0].delta.content)
+print(completion)
 
 # Streaming:
 print("----- streaming request -----")

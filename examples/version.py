@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 
-import sys
-sys.path.append("/home/ts/binedge/wrk/client/edgen-python-client/src") 
-
-
 from edgen import Edgen
 
 client = Edgen()
