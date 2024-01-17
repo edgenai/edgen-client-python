@@ -6,8 +6,7 @@ import pytest
 
 pytest.register_assert_rewrite("tests.utils")
 
-logging.getLogger("openai").setLevel(logging.DEBUG)
-
+logging.getLogger("edgen").setLevel(logging.DEBUG)
 
 @pytest.fixture(scope="session")
 def event_loop() -> Iterator[asyncio.AbstractEventLoop]:

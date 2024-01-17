@@ -6,9 +6,9 @@ from typing_extensions import Required, Annotated, TypedDict
 
 import pytest
 
-from openai._utils import PropertyInfo, transform, parse_datetime
-from openai._compat import PYDANTIC_V2
-from openai._models import BaseModel
+from edgen._utils import PropertyInfo, transform, parse_datetime
+from edgen._compat import PYDANTIC_V2
+from edgen._models import BaseModel
 
 
 class Foo1(TypedDict):
