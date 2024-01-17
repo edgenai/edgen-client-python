@@ -216,7 +216,7 @@ class APIResponse(Generic[R]):
 class MissingStreamClassError(TypeError):
     def __init__(self) -> None:
         super().__init__(
-            "The `stream` argument was set to `True` but the `stream_cls` argument was not given. See `openai._streaming` for reference",
+            "The `stream` argument was set to `True` but the `stream_cls` argument was not given."
         )
 
 

@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Optional, cast
 from argparse import ArgumentParser
 from functools import partial
 
-from openai.types.completion import Completion
+from edgen.types.completion import Completion
 
 from .._utils import get_client
 from ..._types import NOT_GIVEN, NotGivenOr

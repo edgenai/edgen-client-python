@@ -1,7 +1,5 @@
 # Edgen Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/openai.svg)](https://pypi.org/project/openai/)
-
 The Edgen Python is a clone of the official OpenAI Python library.
 It provides convenient access to the Edgen REST API from any Python 3.7+
 application. The library includes type definitions for all request params and response fields,
@@ -21,7 +19,7 @@ pip install edgen
 
 ## Usage
 
-The full API of this library can be found in [api.md](https://www.github.com/edgenai/openai-python-client/blob/main/api.md).
+The full API of this library can be found in [api.md](https://www.github.com/edgenai/edgen-python-client/blob/main/api.md).
 
 ```python
 import os
@@ -149,12 +147,12 @@ completion = client.chat.completions.create(
 
 ## Handling errors
 
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `openai.APIConnectionError` is raised.
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `edgen.APIConnectionError` is raised.
 
 When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `openai.APIStatusError` is raised, containing `status_code` and `response` properties.
+response), a subclass of `edgen.APIStatusError` is raised, containing `status_code` and `response` properties.
 
-All errors inherit from `openai.APIError`.
+All errors inherit from `edgen.APIError`.
 
 ```python
 import edgen
@@ -305,7 +303,7 @@ completion = response.parse()  # get the object that `chat.completions.create()`
 print(completion)
 ```
 
-These methods return an [`APIResponse`](https://github.com/openai/openai-python/tree/main/src/openai/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/edgenai/edgen-python-client/tree/main/src/edgen/_response.py) object.
 
 ### Configuring the HTTP client
 

@@ -31,9 +31,6 @@ class TranscriptionCreateParams(TypedDict, total=False):
     prompt: str
     """An optional text to guide the model's style or continue a previous audio
     segment.
-
-    The [prompt](https://platform.openai.com/docs/guides/speech-to-text/prompting)
-    should match the audio language.
     """
 
     response_format: Literal["json", "text", "srt", "verbose_json", "vtt"]

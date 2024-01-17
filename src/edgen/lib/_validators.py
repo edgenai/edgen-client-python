@@ -241,7 +241,7 @@ def common_prompt_suffix_validator(df: pd.DataFrame) -> Remediation:
             immediate_msg += f"\n  WARNING: Some of your prompts contain the suffix `{common_suffix}` more than once. We strongly suggest that you review your prompts and add a unique suffix"
 
     else:
-        immediate_msg = "\n- Your data does not contain a common separator at the end of your prompts. Having a separator string appended to the end of the prompt makes it clearer to the fine-tuned model where the completion should begin. See https://platform.openai.com/docs/guides/fine-tuning/preparing-your-dataset for more detail and examples. If you intend to do open-ended generation, then you should leave the prompts empty"
+        immediate_msg = "\n- Your data does not contain a common separator at the end of your prompts. Having a separator string appended to the end of the prompt makes it clearer to the fine-tuned model where the completion should begin. If you intend to do open-ended generation, then you should leave the prompts empty"
 
     if common_suffix == "":
         optional_msg = f"Add a suffix separator `{display_suggested_suffix}` to all prompts"
@@ -384,7 +384,7 @@ def common_completion_suffix_validator(df: pd.DataFrame) -> Remediation:
             immediate_msg += f"\n  WARNING: Some of your completions contain the suffix `{common_suffix}` more than once. We suggest that you review your completions and add a unique ending"
 
     else:
-        immediate_msg = "\n- Your data does not contain a common ending at the end of your completions. Having a common ending string appended to the end of the completion makes it clearer to the fine-tuned model where the completion should end. See https://platform.openai.com/docs/guides/fine-tuning/preparing-your-dataset for more detail and examples."
+        immediate_msg = "\n- Your data does not contain a common ending at the end of your completions. Having a common ending string appended to the end of the completion makes it clearer to the fine-tuned model where the completion should end."
 
     if common_suffix == "":
         optional_msg = f"Add a suffix ending `{display_suggested_suffix}` to all completions"
@@ -415,7 +415,7 @@ def completions_space_start_validator(df: pd.DataFrame) -> Remediation:
     immediate_msg = None
 
     if df.completion.str[:1].nunique() != 1 or df.completion.values[0][0] != " ":
-        immediate_msg = "\n- The completion should start with a whitespace character (` `). This tends to produce better results due to the tokenization we use. See https://platform.openai.com/docs/guides/fine-tuning/preparing-your-dataset for more details"
+        immediate_msg = "\n- The completion should start with a whitespace character (` `). This tends to produce better results due to the tokenization we use."
         optional_msg = "Add a whitespace character to the beginning of the completion"
         optional_fn = add_space_start
     return Remediation(
@@ -441,7 +441,7 @@ def lower_case_validator(df: pd.DataFrame, column: Any) -> Remediation | None:
     if count_upper * 2 > count_lower:
         return Remediation(
             name="lower_case",
-            immediate_msg=f"\n- More than a third of your `{column}` column/key is uppercase. Uppercase {column}s tends to perform worse than a mixture of case encountered in normal language. We recommend to lower case the data if that makes sense in your domain. See https://platform.openai.com/docs/guides/fine-tuning/preparing-your-dataset for more details",
+            immediate_msg=f"\n- More than a third of your `{column}` column/key is uppercase. Uppercase {column}s tends to perform worse than a mixture of case encountered in normal language. We recommend to lower case the data if that makes sense in your domain.",
             optional_msg=f"Lowercase all your data in column/key `{column}`",
             optional_fn=lower_case,
         )
@@ -665,7 +665,7 @@ def write_out_file(df: pd.DataFrame, fname: str, any_remediations: bool, auto_ac
 
     if not any_remediations and not split:
         sys.stdout.write(
-            f'\nYou can use your file for fine-tuning:\n> openai api fine_tunes.create -t "{fname}"{additional_params}\n\nAfter you’ve fine-tuned a model, remember that your prompt has to end with the indicator string `{common_prompt_suffix_new_line_handled}` for the model to start generating completions, rather than continuing with the prompt.{optional_ending_string}\n'
+            f'\nYou can use your file for fine-tuning:\n> edgen api fine_tunes.create -t "{fname}"{additional_params}\n\nAfter you’ve fine-tuned a model, remember that your prompt has to end with the indicator string `{common_prompt_suffix_new_line_handled}` for the model to start generating completions, rather than continuing with the prompt.{optional_ending_string}\n'
         )
         estimate_fine_tuning_time(df)
 
@@ -701,7 +701,7 @@ def write_out_file(df: pd.DataFrame, fname: str, any_remediations: bool, auto_ac
             else f"After you’ve fine-tuned a model, remember that your prompt has to end with the indicator string `{common_prompt_suffix_new_line_handled}` for the model to start generating completions, rather than continuing with the prompt."
         )
         sys.stdout.write(
-            f'\nWrote modified file{files_string}`\nFeel free to take a look!\n\nNow use that file when fine-tuning:\n> openai api fine_tunes.create -t "{fnames[0]}"{valid_string}{additional_params}\n\n{separator_reminder}{optional_ending_string}\n'
+            f'\nWrote modified file{files_string}`\nFeel free to take a look!\n\nNow use that file when fine-tuning:\n> edgen api fine_tunes.create -t "{fnames[0]}"{valid_string}{additional_params}\n\n{separator_reminder}{optional_ending_string}\n'
         )
         estimate_fine_tuning_time(df)
     else:

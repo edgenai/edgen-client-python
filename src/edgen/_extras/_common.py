@@ -8,7 +8,7 @@ Edgen error:
 
 This feature requires additional dependencies:
 
-    $ pip install openai[{extra}]
+    $ pip install edgen[{extra}]
 
 """
 
