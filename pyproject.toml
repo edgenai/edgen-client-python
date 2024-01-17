@@ -1,11 +1,11 @@
 [project]
-name = "openai"
-version = "1.7.1"
-description = "The official Python library for the openai API"
+name = "edgen"
+version = "0.1.0"
+description = "The official Python library for the Edgen API"
 readme = "README.md"
 license = "Apache-2.0"
 authors = [
-{ name = "OpenAI", email = "support@openai.com" },
+{ name = "EdgenAI", email = "support@edgen.com" },
 ]
 dependencies = [
     "httpx>=0.23.0, <1",
@@ -40,11 +40,11 @@ classifiers = [
 datalib = ["numpy >= 1", "pandas >= 1.2.3", "pandas-stubs >= 1.1.0.11"]
 
 [project.urls]
-Homepage = "https://github.com/openai/openai-python"
-Repository = "https://github.com/openai/openai-python"
+Homepage = "https://github.com/edgenai/edgen-python-client"
+Repository = "https://github.com/edgenai/edgen-python-client"
 
 [project.scripts]
-openai = "openai.cli:main"
+edgen = "edgen.cli:main"
 
 [tool.rye]
 managed = true

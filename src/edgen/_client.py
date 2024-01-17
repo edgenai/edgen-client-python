@@ -289,7 +289,6 @@ class AsyncEdgen(AsyncAPIClient):
 
         self._default_stream_cls = AsyncStream
 
-        self.completions = resources.AsyncCompletions(self)
         self.chat = resources.AsyncChat(self)
         self.audio = resources.AsyncAudio(self)
         self.with_raw_response = AsyncEdgenWithRawResponse(self)
@@ -405,14 +404,12 @@ class AsyncEdgen(AsyncAPIClient):
 
 class EdgenWithRawResponse:
     def __init__(self, client: Edgen) -> None:
-        self.completions = resources.CompletionsWithRawResponse(client.completions)
         self.chat = resources.ChatWithRawResponse(client.chat)
         self.audio = resources.AudioWithRawResponse(client.audio)
 
 
 class AsyncEdgenWithRawResponse:
     def __init__(self, client: AsyncEdgen) -> None:
-        self.completions = resources.AsyncCompletionsWithRawResponse(client.completions)
         self.chat = resources.AsyncChatWithRawResponse(client.chat)
         self.audio = resources.AsyncAudioWithRawResponse(client.audio)
 

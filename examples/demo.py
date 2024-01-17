@@ -1,35 +1,41 @@
 #!/usr/bin/env -S poetry run python
 
 import sys
-sys.path.append("/home/ts/binedge/wrk/client/openai/openai-python/src") 
+sys.path.append("/home/ts/binedge/wrk/client/edgen-python-client/src") 
 
-
-from openai import OpenAI
+from edgen import Edgen
 
 # gets API Key from environment variable OPENAI_API_KEY
-client = OpenAI()
+client = Edgen()
 
 # Non-streaming:
 print("----- standard request -----")
-completion = client.chat.completions.create(
-    model="gpt-4",
+stream = client.chat.completions.create(
+    model="zephyr-7b-beta.Q4_K_M.gguf",
     messages=[
         {
             "role": "user",
-            "content": "Say this is a test",
+            "content": "what is 1 + 2?",
         },
     ],
+    stream=True,
 )
-print(completion.choices[0].message.content)
+
+for chunk in stream:
+    if not chunk.choices:
+        continue
+
+    print(chunk.choices[0].delta.content, end="")
+print()
 
 # Streaming:
 print("----- streaming request -----")
 stream = client.chat.completions.create(
-    model="gpt-4",
+    model="zephyr-7b-beta.Q4_K_M.gguf",
     messages=[
         {
             "role": "user",
-            "content": "How do I output all files in a directory using Python?",
+            "content": "recite Stopping by Woods on a Snowy Evening",
         },
     ],
     stream=True,

@@ -41,7 +41,8 @@ async def async_main() -> None:
         messages=[
             {
                 "role": "user",
-                "content": "recite Stopping by Woods on a Snowy Evening.",
+                # "content": "Mirror, mirror on the wall, who is the fairest of them all?",
+                "content": "what is 1 + 2?",
             },
         ],
         stream=True,
@@ -60,6 +61,6 @@ async def async_main() -> None:
 
 
 
-sync_main()
+# sync_main()
 
 asyncio.run(async_main())

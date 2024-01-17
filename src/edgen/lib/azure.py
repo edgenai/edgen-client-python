@@ -17,12 +17,9 @@ from .._base_client import DEFAULT_MAX_RETRIES, BaseClient
 
 _deployments_endpoints = set(
     [
-        "/completions",
         "/chat/completions",
-        "/embeddings",
         "/audio/transcriptions",
-        "/audio/translations",
-        "/images/generations",
+        "/misc/version",
     ]
 )
 

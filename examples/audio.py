@@ -3,36 +3,20 @@
 from pathlib import Path
 
 import sys
-sys.path.append("/home/ts/binedge/wrk/client/openai/openai-python/src") 
+sys.path.append("/home/ts/binedge/wrk/client/edgen-python-client/src") 
 
 
-from openai import OpenAI
+from edgen import Edgen
 
-# gets OPENAI_API_KEY from your environment variables
-openai = OpenAI()
+edgen = Edgen()
 
-speech_file_path = Path(__file__).parent / "speech.mp3"
+speech_file_path = Path(__file__).parent.parent.parent.parent / "audio" / "frost.wav"
 
 
 def main() -> None:
-    # Create text-to-speech audio file
-    response = openai.audio.speech.create(
-        model="tts-1", voice="alloy", input="the quick brown fox jumped over the lazy dogs"
-    )
-
-    response.stream_to_file(speech_file_path)
-
     # Create transcription from audio file
-    transcription = openai.audio.transcriptions.create(model="whisper-1", file=speech_file_path)
-    print(transcription.text)
-
-    # Create translation from audio file
-    translation = openai.audio.translations.create(
-        model="whisper-1",
-        file=speech_file_path,
-    )
-    print(translation.text)
-
+    transcription = edgen.audio.transcriptions.create(model="whisper-1", file=speech_file_path)
+    print(transcription)
 
 if __name__ == "__main__":
     main()
