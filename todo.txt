@@ -1,9 +1,0 @@
-- change naming from openai -> edgen
-- hide unsupported endpoints
-- add our proprietary endpoints
-- remove openai url and make local url default
-- remove azure
-- remove unnecessary stuff
-- review installation
-- review documentation
-
