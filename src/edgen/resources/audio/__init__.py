@@ -1,4 +1,4 @@
-# File generated from our OpenAPI spec by Stainless.
+
 
 from .audio import Audio, AsyncAudio, AudioWithRawResponse, AsyncAudioWithRawResponse
 from .transcriptions import (

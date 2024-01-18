@@ -1,4 +1,4 @@
-# File generated from our OpenAPI spec by Stainless.
+
 
 from .chat import Chat, AsyncChat, ChatWithRawResponse, AsyncChatWithRawResponse
 from .audio import Audio, AsyncAudio, AudioWithRawResponse, AsyncAudioWithRawResponse
