@@ -19,7 +19,7 @@ pip install edgen
 
 ## Usage
 
-The full API of this library can be found in [api.md](https://www.github.com/edgenai/edgen-python-client/blob/main/api.md).
+The full API of this library can be found in [api.md](https://www.github.com/edgenai/edgen-client-python/blob/main/api.md).
 
 ```python
 import os
@@ -41,9 +41,8 @@ chat_completion = client.chat.completions.create(
 ```
 
 Note that, in the current version, the model is ignored.
-The model per endpoint is chosen in the *edgen-server*.
-However, the *model* element must be present for compatibility with the OpenAI spec.
-
+The model per endpoint is chosen in the _edgen-server_.
+However, the _model_ element must be present for compatibility with the OpenAI spec.
 
 ## Async usage
 
@@ -122,7 +121,8 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
 
 # Remove `await` for non-async usage.
-```
+
+````
 
 ## Nested params
 
@@ -143,7 +143,7 @@ completion = client.chat.completions.create(
     model="ignore",
     response_format={"type": "json_object"},
 )
-```
+````
 
 ## Handling errors
 
@@ -303,7 +303,7 @@ completion = response.parse()  # get the object that `chat.completions.create()`
 print(completion)
 ```
 
-These methods return an [`APIResponse`](https://github.com/edgenai/edgen-python-client/tree/main/src/edgen/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/edgenai/edgen-client-python/tree/main/src/edgen/_response.py) object.
 
 ### Configuring the HTTP client
 
@@ -337,4 +337,4 @@ Python 3.7 or higher.
 
 ## Tests
 
-The tests are based on *pytest* with the *pytest-asyncio*, *anyio*, *Faker* and *respx* plugins.
+The tests are based on _pytest_ with the _pytest-asyncio_, _anyio_, _Faker_ and _respx_ plugins.
