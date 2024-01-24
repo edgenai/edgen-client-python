@@ -9,7 +9,7 @@ The original library was generated from the [OpenAPI specification](https://gith
 
 ## Documentation
 
-The API documentation can be found [here](https://edgenai.com/docs).
+The API documentation can be found [here](https://edgen.com/docs).
 
 ## Installation
 
