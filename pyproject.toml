@@ -43,9 +43,6 @@ datalib = ["numpy >= 1", "pandas >= 1.2.3", "pandas-stubs >= 1.1.0.11"]
 Homepage = "https://github.com/edgenai/edgen-client-python"
 Repository = "https://github.com/edgenai/edgen-client-python"
 
-[project.scripts]
-edgen = "edgen.cli:main"
-
 [tool.rye]
 managed = true
 # version pins are in requirements-dev.lock
