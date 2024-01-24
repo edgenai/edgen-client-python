@@ -96,9 +96,7 @@ class Edgen(SyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("EDGEN_BASE_URL")
         if base_url is None:
-            base_url = f"http://127.0.0.1:3000/v1"
-
-        # print(f"{base_url}")
+            base_url = f"http://127.0.0.1:33322/v1/"
 
         super().__init__(
             version=__version__,
@@ -274,7 +272,7 @@ class AsyncEdgen(AsyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("EDGEN_BASE_URL")
         if base_url is None:
-            base_url = f"http://127.0.0.1:3000/v1"
+            base_url = f"http://127.0.0.1:33322/v1/"
 
         super().__init__(
             version=__version__,
