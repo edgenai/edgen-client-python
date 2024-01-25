@@ -16,6 +16,6 @@ class Misc(SyncAPIResource):
 class EdgenVersion(SyncAPIResource):
     def create(self) -> Version:
         return self._get(
-            "/version",
+            "/misc/version",
             cast_to=Version,
         )
