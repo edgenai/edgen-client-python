@@ -25,10 +25,16 @@ from ..._base_client import (
     make_request_options,
 )
 
+from .completions_status import CompletionsStatus
+
 __all__ = ["Completions", "AsyncCompletions"]
 
 
 class Completions(SyncAPIResource):
+    @cached_property
+    def status(self) -> CompletionsStatus:
+        return CompletionsStatus(self._client)
+
     @cached_property
     def with_raw_response(self) -> CompletionsWithRawResponse:
         return CompletionsWithRawResponse(self)
