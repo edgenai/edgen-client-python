@@ -17,10 +17,16 @@ from ..._base_client import (
     make_request_options,
 )
 
+from .transcriptions_status import TranscriptionsStatus
+
 __all__ = ["Transcriptions", "AsyncTranscriptions"]
 
 
 class Transcriptions(SyncAPIResource):
+    @cached_property
+    def status(self) -> TranscriptionsStatus:
+        return TranscriptionsStatus(self._client)
+
     @cached_property
     def with_raw_response(self) -> TranscriptionsWithRawResponse:
         return TranscriptionsWithRawResponse(self)

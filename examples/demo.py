@@ -5,6 +5,7 @@ from edgen import Edgen
 client = Edgen()
 
 # Non-streaming:
+"""
 print("----- standard request -----")
 completion = client.chat.completions.create(
     model="zephyr-7b-beta.Q4_K_M.gguf",
@@ -18,8 +19,8 @@ completion = client.chat.completions.create(
 
 # print(completion.choices[0].delta.content)
 print(completion)
-
 """
+
 # Streaming:
 print("----- streaming request -----")
 stream = client.chat.completions.create(
@@ -27,7 +28,7 @@ stream = client.chat.completions.create(
     messages=[
         {
             "role": "user",
-            "content": "recite Stopping by Woods on a Snowy Evening",
+            "content": "what is the result of 1+2?",
         },
     ],
     stream=True,
@@ -38,4 +39,3 @@ for chunk in stream:
 
     print(chunk.choices[0].delta.content, end="")
 print()
-"""
