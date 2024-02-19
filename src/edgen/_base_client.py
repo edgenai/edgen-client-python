@@ -994,13 +994,11 @@ class SyncAPIClient(BaseClient[httpx.Client, Stream[Any]]):
         options: FinalRequestOptions,
     ) -> SyncPageT:
         def _parser(resp: SyncPageT) -> SyncPageT:
-            # With list results _set_private_attribtes is not available
-            if type(resp) is not list:
-                resp._set_private_attributes(
-                    client=self,
-                    model=model,
-                    options=options,
-                )
+            resp._set_private_attributes(
+                client=self,
+                model=model,
+                options=options,
+            )
             return resp
 
         options.post_parser = _parser
