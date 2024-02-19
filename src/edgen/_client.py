@@ -50,6 +50,7 @@ class Edgen(SyncAPIClient):
     completions: resources.Completions
     chat: resources.Chat
     audio: resources.Audio
+    models: resources.Models
     misc: resources.Misc
     with_raw_response: EdgenWithRawResponse
 
@@ -114,6 +115,7 @@ class Edgen(SyncAPIClient):
         self.chat = resources.Chat(self)
         self.audio = resources.Audio(self)
         self.misc  = resources.Misc(self)
+        self.models = resources.Models(self)
 
     @property
     @override
@@ -227,6 +229,7 @@ class Edgen(SyncAPIClient):
 class AsyncEdgen(AsyncAPIClient):
     chat: resources.AsyncChat
     audio: resources.AsyncAudio
+    models: resources.AsyncModels
     with_raw_response: AsyncEdgenWithRawResponse
 
     # client options
@@ -289,6 +292,7 @@ class AsyncEdgen(AsyncAPIClient):
 
         self.chat = resources.AsyncChat(self)
         self.audio = resources.AsyncAudio(self)
+        self.models = resources.AsyncModels(self)
         self.with_raw_response = AsyncEdgenWithRawResponse(self)
 
     @property
@@ -404,12 +408,14 @@ class EdgenWithRawResponse:
     def __init__(self, client: Edgen) -> None:
         self.chat = resources.ChatWithRawResponse(client.chat)
         self.audio = resources.AudioWithRawResponse(client.audio)
+        self.models= resources.ModelsWithRawResponse(client.models)
 
 
 class AsyncEdgenWithRawResponse:
     def __init__(self, client: AsyncEdgen) -> None:
         self.chat = resources.AsyncChatWithRawResponse(client.chat)
         self.audio = resources.AsyncAudioWithRawResponse(client.audio)
+        self.models= resources.ModelsWithRawResponse(client.models)
 
 
 Client = Edgen
