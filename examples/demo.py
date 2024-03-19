@@ -5,10 +5,9 @@ from edgen import Edgen
 client = Edgen()
 
 # Non-streaming:
-"""
 print("----- standard request -----")
 completion = client.chat.completions.create(
-    model="zephyr-7b-beta.Q4_K_M.gguf",
+    model="default",
     messages=[
         {
             "role": "user",
@@ -16,15 +15,12 @@ completion = client.chat.completions.create(
         },
     ],
 )
-
-# print(completion.choices[0].delta.content)
 print(completion)
-"""
 
 # Streaming:
 print("----- streaming request -----")
 stream = client.chat.completions.create(
-    model="zephyr-7b-beta.Q4_K_M.gguf",
+    model="default",
     messages=[
         {
             "role": "user",

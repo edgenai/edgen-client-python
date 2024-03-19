@@ -10,7 +10,7 @@ from edgen import Edgen, AsyncEdgen
 def sync_main() -> None:
     client = Edgen()
     response = client.chat.completions.create(
-        model="zephyr",
+        model="default",
         messages=[
             {
                 "role": "user",
@@ -33,7 +33,7 @@ def sync_main() -> None:
 async def async_main() -> None:
     client = AsyncEdgen()
     response = await client.chat.completions.create(
-        model="gpt-3.5-turbo-instruct",
+        model="default",
         messages=[
             {
                 "role": "user",

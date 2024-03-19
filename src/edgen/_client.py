@@ -52,7 +52,6 @@ class Edgen(SyncAPIClient):
     audio: resources.Audio
     models: resources.Models
     misc: resources.Misc
-    with_raw_response: EdgenWithRawResponse
 
     # client options
     api_key: str
@@ -230,7 +229,6 @@ class AsyncEdgen(AsyncAPIClient):
     chat: resources.AsyncChat
     audio: resources.AsyncAudio
     models: resources.AsyncModels
-    with_raw_response: AsyncEdgenWithRawResponse
 
     # client options
     api_key: str
@@ -293,7 +291,6 @@ class AsyncEdgen(AsyncAPIClient):
         self.chat = resources.AsyncChat(self)
         self.audio = resources.AsyncAudio(self)
         self.models = resources.AsyncModels(self)
-        self.with_raw_response = AsyncEdgenWithRawResponse(self)
 
     @property
     @override
@@ -402,21 +399,6 @@ class AsyncEdgen(AsyncAPIClient):
         if response.status_code >= 500:
             return _exceptions.InternalServerError(err_msg, response=response, body=data)
         return APIStatusError(err_msg, response=response, body=data)
-
-
-class EdgenWithRawResponse:
-    def __init__(self, client: Edgen) -> None:
-        self.chat = resources.ChatWithRawResponse(client.chat)
-        self.audio = resources.AudioWithRawResponse(client.audio)
-        self.models= resources.ModelsWithRawResponse(client.models)
-
-
-class AsyncEdgenWithRawResponse:
-    def __init__(self, client: AsyncEdgen) -> None:
-        self.chat = resources.AsyncChatWithRawResponse(client.chat)
-        self.audio = resources.AsyncAudioWithRawResponse(client.audio)
-        self.models= resources.ModelsWithRawResponse(client.models)
-
 
 Client = Edgen
 
